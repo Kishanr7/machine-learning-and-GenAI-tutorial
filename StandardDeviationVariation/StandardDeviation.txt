@@ -1,0 +1,11 @@
+Standard Deviation is just the square root of the variance.
+
+Variance(sigma square) = 5.04
+Standard Deviation(sigma) = square root of 5.04 = 2.24
+
+Standard Deviation of (1,4,5,4,8) is 2.24
+
+This is usually used as a way to identify outliers. 
+Data points that lie more than one standard deviation from the mena can be considered unusual.
+
+You can talk about how extreme a data point is by talking about " how many sigmas" away from the mean it is.

@@ -1,0 +1,10 @@
+Variance measures how spread-out the data is.
+
+- Variance is simply the average of the squared differences from the mean
+
+- Example: what is the variance of the data set (1,4,5,4,8)?
+- First find the mean : (1+4+5+4+8)/5=4.4
+- Now find the differences from the mean: (-3.4, -0.4, 0.6, -0.4, 3.6)
+- Find the squared differences: (11.56, 0.16, 0.36, 0.16, 12.96)
+- Find the average of the squared differences: 
+    Variance = (11.56 + 0.16 + 0.36 + 0.16 + 12.96)/5 = 5.04

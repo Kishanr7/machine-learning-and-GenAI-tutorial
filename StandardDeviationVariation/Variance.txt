@@ -8,3 +8,13 @@ Variance measures how spread-out the data is.
 - Find the squared differences: (11.56, 0.16, 0.36, 0.16, 12.96)
 - Find the average of the squared differences: 
     Variance = (11.56 + 0.16 + 0.36 + 0.16 + 12.96)/5 = 5.04
+
+
+Population vs Sample
+if we're working with a sample of data instead of an entire data set (the entire Population)
+- Then we will use the "Sample variance" instead of the "Population variance"
+- For N samples, you just divide the squared variances by N-1 instead of N/
+- Population Variance - sigma square 
+    Variance = (11.56 + 0.16 + 0.36 + 0.16 + 12.96)/5 = 5.04
+- Sample Variance - S square
+    Sample variance = (11.56 + 0.16 + 0.36 + 0.16 + 12.96)/4 = 6.3 

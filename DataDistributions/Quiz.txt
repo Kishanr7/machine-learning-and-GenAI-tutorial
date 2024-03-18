@@ -1,0 +1,2 @@
+What's the equivalent of a probability distribution function when using discrete instead of continuous data?
+-> probability mass function

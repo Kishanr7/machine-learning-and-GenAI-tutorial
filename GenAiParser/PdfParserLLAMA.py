@@ -23,7 +23,6 @@ logging.info("Loaded documents:")
 for doc in documents:
     doc.text = doc.text.upper()
     logging.info(doc.text)
-    
 index = VectorStoreIndex.from_documents(documents, service_context= service_context)
 index.storage_context.persist()
 

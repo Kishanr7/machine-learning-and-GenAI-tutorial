@@ -6,11 +6,16 @@ from llama_index.core import (
 from IPython.display import Markdown, display
 import logging
 import sys
+from datetime import datetime
 
 # Setup logging
 def setup_logging():
-    logging.basicConfig(filename='1.log', level=logging.DEBUG)
-    logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
+    current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    log_filename = f"log_{current_time}.log"
+    logging.basicConfig(filename=log_filename,
+                        level=logging.DEBUG,
+                        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    #logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 
 # Initialize LLM Service
 def initialize_llm_service():
@@ -49,6 +54,7 @@ def display_markdown(text):
     display(Markdown(f"<b>{text}</b>"))
 
 def main():
+    query = input("Please provide your query! :--")
     setup_logging()
     print("--------Logging Setup--------")
     service_context = initialize_llm_service()
@@ -61,9 +67,9 @@ def main():
     print("--------index stored--------")
     query_engine_instance = index.as_query_engine()
     print("--------Query engine--------")
-    response = query_engine(query_engine_instance, "What are the key competencies of the author?")
+    response = query_engine(query_engine_instance, query)
     print("--------Query fired--------")
-    print(response)
+    print("Query response:", response)
     display_markdown(response)
 
 if __name__ == "__main__":

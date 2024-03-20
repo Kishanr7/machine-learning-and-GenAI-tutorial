@@ -11,7 +11,7 @@ from datetime import datetime
 # Setup logging
 def setup_logging():
     current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    log_filename = f"log_{current_time}.log"
+    log_filename = f"./logs/log_{current_time}.log"
     logging.basicConfig(filename=log_filename,
                         level=logging.DEBUG,
                         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -29,6 +29,7 @@ def load_and_preprocess_documents(path):
     documents = SimpleDirectoryReader(path).load_data()
     for doc in documents:
         doc.text = doc.text.upper()
+        print(doc.text)
     logging.info("Documents loaded and preprocessed.")
     return documents
 

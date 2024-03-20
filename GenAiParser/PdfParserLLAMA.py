@@ -50,12 +50,19 @@ def display_markdown(text):
 
 def main():
     setup_logging()
+    print("--------Logging Setup--------")
     service_context = initialize_llm_service()
+    print("--------LLM Setup--------")
     documents = load_and_preprocess_documents("Docs")
+    print("--------Docs loaded--------")
     index = create_and_persist_index(documents, service_context)
+    print("--------index persisted--------")
     index = load_index("./storage")
+    print("--------index stored--------")
     query_engine_instance = index.as_query_engine()
-    response = query_engine(query_engine_instance, "What is the total experience?")
+    print("--------Query engine--------")
+    response = query_engine(query_engine_instance, "What are the key competencies of the author?")
+    print("--------Query fired--------")
     print(response)
     display_markdown(response)
 

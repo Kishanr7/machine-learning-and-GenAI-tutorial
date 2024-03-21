@@ -1,0 +1,12 @@
+The first moment is the mean.
+
+The second moment is the variance.
+
+The third moment is "skew"
+-  How 'lopsided is the distribution?
+- A distribution with a longer tail on the left will be skewed left, and  have a negative skew.
+- A distribution with a longer tail on the right will be skewed right, and  have a positive skew.
+
+The fourth moment is "kurtosis"
+- How thick is the tail, and how sharp is the peak, compared to a normal distribution?
+- example: Higher peaks have higher kurtosis.

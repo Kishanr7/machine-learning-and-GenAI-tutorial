@@ -1,0 +1,6 @@
+2024-03-23 14:29:36,923 - llama_index.core.readers.file.base - DEBUG - > [SimpleDirectoryReader] Total files added: 4
+2024-03-23 14:29:37,050 - fsspec.local - DEBUG - open file: D:/Code/Machine-Learning/GithubRepo/machine-learning-and-GenAI-tutorial/GenAiParser/Docs/MainKishResume.pdf
+2024-03-23 14:29:37,123 - fsspec.local - DEBUG - open file: D:/Code/Machine-Learning/GithubRepo/machine-learning-and-GenAI-tutorial/GenAiParser/Docs/random.txt
+2024-03-23 14:29:37,124 - fsspec.local - DEBUG - open file: D:/Code/Machine-Learning/GithubRepo/machine-learning-and-GenAI-tutorial/GenAiParser/Docs/Samsung_Invoice.pdf
+2024-03-23 14:29:37,150 - fsspec.local - DEBUG - open file: D:/Code/Machine-Learning/GithubRepo/machine-learning-and-GenAI-tutorial/GenAiParser/Docs/SpotifyInvoice.pdf
+2024-03-23 14:29:37,237 - root - INFO - Documents loaded and preprocessed.

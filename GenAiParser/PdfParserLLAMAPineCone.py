@@ -16,7 +16,7 @@ from datetime import datetime
 # Setup logging
 def setup_logging():
     current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    log_filename = f"./logs/log_{current_time}.log"
+    log_filename = f"./logs/log_PC_{current_time}.log"
     logging.basicConfig(filename=log_filename,
                         level=logging.DEBUG,
                         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -24,8 +24,8 @@ def setup_logging():
 
 # Initialize LLM Service
 def initialize_llm_service():
-    llm = OpenAI(model='gpt-3.5-turbo', temperature=0, max_tokens=256)
-    service_context = ServiceContext.from_defaults(llm=llm, chunk_size=1000, chunk_overlap=20)
+    model = OpenAIEmbedding(model='text-embedding-ada-002')
+    service_context = ServiceContext.from_defaults(embed_model=model, chunk_size=1000, chunk_overlap=20)
     set_global_service_context(service_context)
     return service_context
 
@@ -37,32 +37,6 @@ def load_and_preprocess_documents(path):
         print(doc.text)
     logging.info("Documents loaded and preprocessed.")
     return documents
-
-'''AttributeError: init is no longer a top-level attribute of the pinecone package.
-
-Please create an instance of the Pinecone class instead.
-
-Example:
-
-    import os
-    from pinecone import Pinecone, ServerlessSpec
-
-    pc = Pinecone(
-        api_key=os.environ.get("PINECONE_API_KEY")
-    )
-
-    # Now do stuff
-    if 'my_index' not in pc.list_indexes().names():
-        pc.create_index(
-            name='my_index',
-            dimension=1536,
-            metric='euclidean',
-            spec=ServerlessSpec(
-                cloud='aws',
-                region='us-west-2'
-            )
-        )
-'''
 
 # Create and persist index
 def create_and_persist_index(documents, service_context):

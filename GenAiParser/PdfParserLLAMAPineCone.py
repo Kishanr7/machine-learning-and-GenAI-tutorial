@@ -12,7 +12,7 @@ from IPython.display import Markdown, display
 import logging
 import sys
 from datetime import datetime
-
+from llama_index.core import Settings
 # Setup logging
 def setup_logging():
     current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -24,22 +24,22 @@ def setup_logging():
 
 # Initialize LLM Service
 def initialize_llm_service():
-    model = OpenAIEmbedding(model='text-embedding-ada-002')
-    service_context = ServiceContext.from_defaults(embed_model=model, chunk_size=1000, chunk_overlap=20)
-    set_global_service_context(service_context)
-    return service_context
+    Settings.llm = OpenAI(model='gpt-3.5-turbo', temperature=0, max_tokens=256)
+    Settings.embed_model = OpenAIEmbedding(model="text-embedding-ada-002", embed_batch_size=100)
+    Settings.chunk_size = 1000
+    Settings.chunk_overlap = 20
+    return Settings
 
 # Load and preprocess documents
 def load_and_preprocess_documents(path):
     documents = SimpleDirectoryReader(path).load_data()
     for doc in documents:
-        doc.text = doc.text.upper()
         print(doc.text)
     logging.info("Documents loaded and preprocessed.")
     return documents
 
 # Create and persist index
-def create_and_persist_index(documents, service_context):
+def create_and_persist_index(documents):
     pc = Pinecone(
         api_key=os.environ.get('PINECONE_API_KEY')
     )
@@ -64,15 +64,9 @@ def create_and_persist_index(documents, service_context):
     
     index = VectorStoreIndex.from_documents(
         documents,
-        storage_context=storage_context, 
-        service_context=service_context)
+        storage_context=storage_context)
     print(index)
     return index
-
-# Load index from storage
-'''def load_index(storage_dir):
-    storage_context = StorageContext.from_defaults(persist_dir=storage_dir)
-    return load_index_from_storage(storage_context=storage_context)'''
 
 # Query the engine
 def query_engine(engine, query):
@@ -92,10 +86,8 @@ def main():
     print("--------LLM Setup--------")
     documents = load_and_preprocess_documents("Docs")
     print("--------Docs loaded--------")
-    index = create_and_persist_index(documents, service_context)
+    index = create_and_persist_index(documents)
     print("--------index persisted--------")
-    '''index = load_index("./storage")
-    print("--------index stored--------")'''
     query_engine_instance = index.as_query_engine()
     print("--------Query engine--------")
     response = query_engine(query_engine_instance, query)

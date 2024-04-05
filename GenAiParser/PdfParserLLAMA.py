@@ -36,9 +36,6 @@ def initialize_llm_service():
 def load_and_preprocess_documents(path):
     try:
         documents = SimpleDirectoryReader(path).load_data()
-        for doc in documents:
-            doc.text = doc.text.upper()
-            print(doc.text)
         logging.info("Documents loaded and preprocessed.")
         return documents
     except Exception as e:

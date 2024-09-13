@@ -1,0 +1,9 @@
+# Define your connection parameters
+conn = snowflake.connector.connect(
+    user='BITSCSEL11',
+    password='TheAlteredCarbon@0911',
+    account='YRB55864',
+    warehouse='COMPUTE_WH',
+    database='SNOWPIPE_AWS',
+    schema='PUBLIC'
+)

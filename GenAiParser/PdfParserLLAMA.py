@@ -1,18 +1,20 @@
 import logging
 from datetime import datetime
+import os
+import sys
+from IPython.display import Markdown, display
 from llama_index.llms.openai import OpenAI
 from llama_index.core import (
-    VectorStoreIndex, SimpleDirectoryReader, StorageContext,
-    load_index_from_storage, ServiceContext, set_global_service_context
+    VectorStoreIndex, SimpleDirectoryReader, StorageContext, load_index_from_storage,
+    Settings, ServiceContext
 )
-from IPython.display import Markdown, display
-import sys
+from llama_index.embeddings.openai import OpenAIEmbedding
 
 # Setup logging
 def setup_logging():
     try:
         current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        log_filename = f"../../GenAiParserLogs/log_{current_time}.log"
+        log_filename = f"../../GenAiParserLogs/logs/log_{current_time}.log"
         logging.basicConfig(filename=log_filename,
                             level=logging.DEBUG,
                             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -24,19 +26,19 @@ def setup_logging():
 # Initialize LLM Service
 def initialize_llm_service():
     try:
-        llm = OpenAI(model='gpt-3.5-turbo', temperature=0, max_tokens=256)
-        service_context = ServiceContext.from_defaults(llm=llm, chunk_size=1000, chunk_overlap=20)
-        set_global_service_context(service_context)
-        return service_context
+        Settings.llm = OpenAI(model='gpt-3.5-turbo', temperature=0, max_tokens=256)
+        Settings.embed_model = OpenAIEmbedding(model="text-embedding-ada-002", embed_batch_size=100)
+        Settings.chunk_size = 1000
     except Exception as e:
-        logging.error(f"Error occurred while initializing LLM service: {str(e)}")
-        raise
+        logging.error(f"Error in initializing LLM service: {e}")
+    return Settings
 
 # Load and preprocess documents
 def load_and_preprocess_documents(path):
     try:
         documents = SimpleDirectoryReader(path).load_data()
         logging.info("Documents loaded and preprocessed.")
+        logging.info(f"Documents 1 {documents[1]}")
         return documents
     except Exception as e:
         logging.error(f"Error occurred while loading and preprocessing documents: {str(e)}")
